@@ -1,0 +1,152 @@
+body {
+    font-family: 'Oswald', sans-serif;
+    background-color: #333333;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background-color: #444444;
+    padding: 50px;
+    text-align: center;
+    z-index: 999;
+}
+
+.logo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+
+.logo img {
+    max-width: 100px;
+    height: auto;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    display: block;
+    font-weight: 500;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 18px;
+    text-transform: capitalize;
+    padding: 10px 20px;
+    border-radius: 10px;
+    width: 52px;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.scroll-to-top {
+    font-family: 'Oswald', sans-serif;
+    position: fixed;
+    top: 50px;
+    right: 20px;
+    z-index: 999;
+    background-color: #ffffff;
+    color: #333333;
+    border-radius: 10%;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.scroll-to-top:hover {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+
+.container {
+    max-width: 1200px;
+    margin: 120px auto 40px;
+    padding: 40px;
+}
+
+h1 {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 0px; /* Adjust the margin-bottom value */
+    margin-top: 0px; /* Add a margin-top value */
+    margin-right: 50px;
+    font-size: 48px;
+    text-transform: capitalize;
+    font-weight: 700;
+    font-family: 'Oswald', sans-serif;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+    margin-top: 20px;
+}
+
+.item {
+    text-align: center;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    background-color: #444444;
+    color: #ffffff; /* Match the background color */
+}
+
+.item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.item a {
+    display: block;
+    text-decoration: none;
+}
+
+.item img {
+    max-width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+
+.item img:hover {
+    opacity: 0.9;
+}
+
+.item .caption {
+    padding: 10px;
+}
+
+.item .caption h3 {
+    font-size: 18px;
+    margin: 0;
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+.item .caption p {
+    font-size: 14px;
+    color: #ffffff;
+    margin: 0;
+}
