@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shoes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="shoes-page">
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="TrendyTreasures Logo">
+        </div>
+        <h1>Trendy Treasures</h1>
+        <a href="index.html" class="home-button">Home</a>
+    </header>
+    <div class="container">
+        <div class="grid" id="shoes-grid">
+            <!-- Products will be dynamically populated here -->
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // Fetch CSV data and populate the grid
+        fetch('laptops.csv')
+            .then(response => response.text())
+            .then(data => {
+                const rows = data.split('\n');
+                const grid = document.getElementById('shoes-grid');
+
+                rows.forEach(row => {
+                    const [imagePath, link, productName] = row.split(',');
+
+                    const item = document.createElement('div');
+                    item.classList.add('item');
+
+                    const anchor = document.createElement('a');
+                    anchor.href = link;
+
+                    const image = document.createElement('img');
+                    image.src = imagePath;
+                    image.alt = productName;
+
+                    const caption = document.createElement('div');
+                    caption.classList.add('caption');
+
+                    const title = document.createElement('h3');
+                    title.textContent = productName;
+
+                    caption.appendChild(title);
+                    anchor.appendChild(image);
+                    anchor.appendChild(caption);
+                    item.appendChild(anchor);
+                    grid.appendChild(item);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    </script>
+</body>
+</html>

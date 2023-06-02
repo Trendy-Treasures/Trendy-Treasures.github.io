@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Affilate Marketing</title>
+    <title>Affiliate Marketing</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
 </head>
 <body>
     <header>
@@ -10,88 +12,109 @@
             <img src="logo.png" alt="TrendyTreasures Logo">
         </div>
         <h1>Trendy Treasures</h1>
-    <nav>
-        <ul>
-            <li><a href="#" class="scroll-to-top">Home</a></li>
-        </ul>
-    </nav>
+        <nav>
+            <ul>
+                <li><a href="#" class="scroll-to-top">Home</a></li>
+            </ul>
+        </nav>
     </header>
     <div class="container">
-        <div class="grid">
-            <div class="item">
-                <a href="https://amzn.to/42eqaSI">
-                    <img src="product/1.jpg" alt="Item 1">
-                    <div class="caption">
-                        <h3>Shoes</h3>
-                    </div>
-                </a>
+        <section id="laptops">
+            <h2>Laptops</h2>
+            <div class="grid"></div>
+            <div id="laptops-more" class="more-button">
+              <a href="laptops.html" class="more-items-button">More Items</a>
             </div>
-            <div class="item">
-                <a href="https://amzn.to/45BQE3y">
-                    <img src="product/2.jpg" alt="Item 2">
-                    <div class="caption">
-                        <h3>Product Name</h3>
-                    </div>
-                </a>
-            </div>
-            <div class="item">
-                <a href="https://amzn.to/3q7XZYf">
-                    <img src="product/3.jpg" alt="Item 3">
-                    <div class="caption">
-                        <h3>Product Name</h3>
-                    </div>
-                </a>
-            </div>
-            <div class="item">
-                <a href="https://amzn.to/43eFIal">
-                    <img src="product/4.jpg" alt="Item 3">
-                    <div class="caption">
-                        <h3>Product Name</h3>
-                    </div>
-                </a>
-            </div>
-            <div class="item">
-                <a href="https://amzn.to/43FpJCd">
-                    <img src="product/5.jpg" alt="Item 3">
-                    <div class="caption">
-                        <h3>Product Name</h3>                    
-                    </div>
-                </a>
-            </div>
-            <div class="item">
-                <a href="https://amzn.to/3OUvWWR">
-                    <img src="product/6.jpg" alt="Item 3">
-                    <div class="caption">
-                        <h3>Product Name</h3>
-                    </div>
-                </a>
-            </div>
-            <div class="item">
-                <a href="https://amzn.to/3qmdiwN">
-                    <img src="product/7.jpg" alt="Item 3">
-                    <div class="caption">
-                        <h3>Product Name</h3>
-                    </div>
-                </a>
-            </div>
-            <div class="item">
-                <a href="https://amzn.to/3qjWTZA">
-                    <img src="product/8.jpg" alt="Item 3">
-                    <div class="caption">
-                        <h3>Product Name</h3>
-                    </div>
-                </a>
-            </div>
-            <div class="item">
-                <a href="https://example.com/item3">
-                    <img src="product/3.jpeg" alt="Item 3">
-                    <div class="caption">
-                        <h3>Product Name</h3>
-                    </div>
-                </a>
-            </div>
-            <!-- Add more items as needed -->
+        </section>
+        <section id="mobiles">
+          <h2>mobiles</h2>
+          <div class="grid"></div>
+          <div id="laptops-more" class="more-button">
+            <a href="mobiles.html" class="more-items-button">More Items</a>
+          </div>
+      </section>
+      <section id="gadgets">
+        <h2>Gadgets</h2>
+        <div class="grid"></div>
+        <div id="laptops-more" class="more-button">
+          <a href="gadgets.html" class="more-items-button">More Items</a>
         </div>
+      </section>
+        <!-- Add more sections as needed -->
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            generateGridItems('laptops.csv', 'laptops', 4);
+            generateGridItems('mobiles.csv', 'mobiles', 4);
+            generateGridItems('gadgets.csv', 'gadgets', 4);
+            // Add more generateGridItems function calls for additional sections
+        });
+
+        function generateGridItems(csvFilePath, sectionId, maxItems) {
+            const grid = document.getElementById(sectionId).querySelector(".grid");
+
+            // Fetch CSV data
+            fetch(csvFilePath)
+                .then(response => response.text())
+                .then(data => {
+                    const products = parseCSV(data);
+                    const firstFourProducts = products.slice(0, maxItems);
+
+                    // Create grid items for the first four products
+                    firstFourProducts.forEach(product => {
+                        createGridItem(product, grid);
+                    });
+
+                    // Check if more items are available
+                    if (products.length > maxItems) {
+                        const moreButton = document.getElementById(sectionId + "-more");
+                        moreButton.style.display = "block";
+                        moreButton.querySelector("a").href = sectionId + ".html";
+                    }
+                })
+                .catch(error => console.log("Error fetching CSV data:", error));
+        }
+
+        function parseCSV(csv) {
+            const lines = csv.split('\n');
+            const products = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].split(',');
+                const imagePath = line[0].trim();
+                const link = line[1].trim();
+                const name = line[2].trim();
+
+                products.push({ imagePath, link, name });
+            }
+
+            return products;
+        }
+
+        function createGridItem(product, grid) {
+            const item = document.createElement('div');
+            item.classList.add('item');
+
+            const link = document.createElement('a');
+            link.href = product.link;
+            item.appendChild(link);
+
+            const image = document.createElement('img');
+            image.src = product.imagePath;
+            image.alt = product.name;
+            link.appendChild(image);
+
+            const caption = document.createElement('div');
+            caption.classList.add('caption');
+            item.appendChild(caption);
+
+            const productName = document.createElement('h3');
+            productName.textContent = product.name;
+            caption.appendChild(productName);
+
+            grid.appendChild(item);
+        }
+    </script>
 </body>
 </html>
